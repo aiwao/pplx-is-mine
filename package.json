@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "web-ext run --source-dir ./src",
-    "build": "web-ext build --source-dir ./src --artifacts-dir ./build-firefox",
+    "build": "web-ext build --source-dir ./src --artifacts-dir ./build",
     "server": "http-server ./src -c-1"
   },
   "keywords": [],
