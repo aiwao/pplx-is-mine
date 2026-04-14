@@ -56,10 +56,14 @@ function addStorageEntry(id, key, value) {
 
 function handleAddButton() {
   const key = ctrllerKeyInput.value
-  if (key === CONTROLLER_ID || internal_storage[key]) return
+  if (key === CONTROLLER_ID) return
 
   const value = ctrllerValueInput.value
-  addStorageEntry(key, key, value)
+  if (hasJSONPath(internal_storage, key)) {
+    document.getElementById(key+"-value").value = value
+  } else {
+    addStorageEntry(key, key, value)
+  }
   internal_storage = setJSONValue(internal_storage, key, value)
   ctrllerKeyInput.value = ""
   ctrllerValueInput.value = ""

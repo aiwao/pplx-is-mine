@@ -23,6 +23,18 @@ function setJSONValue(obj, path, value) {
   return obj
 }
 
+function hasJSONPath(obj, path) {
+  if (!obj || typeof obj !== "object") return false
+  
+  return path.split(".").every(key => {
+    if (obj && typeof obj === "object" && key in obj) {
+      obj = obj[key]
+      return true
+    }
+    return false
+  })
+}
+
 function addEntriesFromJSON(obj, prefix = "") {
   for (const [key, value] of Object.entries(obj)) {
     const path = prefix ? `${prefix}.${key}` : key
