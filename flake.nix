@@ -24,6 +24,7 @@
             typescript
             typescript-language-server
             vscode-langservers-extracted
+            http-server
           ];
         };
       }
