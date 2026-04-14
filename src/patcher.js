@@ -1,22 +1,31 @@
 (() => {
   console.log("[pplx-is-mine] Injected");
   
-  let config = {
-    endpoint: "perplexity.ai/rest/sse/perplexity_ask",
-    model: null
+  let extConfig = {
+    pplxAskEndpoint: "perplexity.ai/rest/sse/perplexity_ask"
   }
+  
   window.addEventListener("message", (e) => {
-    if (e.data.source !== "pplx-is-mine" || e.data.type !== "CONFIG")
+    if (e.data.source !== "pplx-is-mine")
       return
 
-    config = {
-      ...config,
-      ...e.data.payload,
+    if (e.data.type === "CONFIG") {
+      config = e.data.payload
+    } else if (e.data.type == "EXT_CONFIG") {
+      extConfig = {
+        ...extConfig,
+        ...e.data.payload,
+      }
     }
   })
+
   window.postMessage({
     source: "pplx-is-mine",
     type: "GET_CONFIG",
+  }, "*")
+  window.postMessage({
+    source: "pplx-is-mine",
+    type: "GET_EXT_CONFIG",
   }, "*")
 
   const originalFetch = window.fetch.bind(window)
