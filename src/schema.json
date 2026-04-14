@@ -1,8 +1,0 @@
-{
-  "name": "pplx-is-mine@140.lol",
-  "description": "ignored",
-  "type": "storage",
-  "data": {
-    "pplxAskEndpoint": "perplexity ask api endpoint (default: perplexity.ai/rest/sse/perplexity_ask)"
-  }
-}
