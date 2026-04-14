@@ -13,28 +13,6 @@ let ctrllerAddButton
 const ctrllerContainer = document.getElementById("entries")
 const mainContainer = document.getElementById("main-container")
 
-function createButton(id, label, onclick) {
-  const result = document.createElement("button")
-  result.id = id
-  result.innerText = label
-  result.onclick = onclick
-  return result
-}
-
-function createInput(id, placeholder, value) {
-  const result = document.createElement("input")
-  result.id = id
-  result.placeholder = placeholder
-  result.value = value
-  return result
-}
-
-function createSpacer(height) {
-  const result = document.createElement("div")
-  result.style = `height: ${height};`
-  return result
-}
-
 function addStorageEntry(id, key, value) {
   const container = document.createElement("div")
   container.classList.add("row-container")
@@ -76,31 +54,6 @@ function addStorageEntry(id, key, value) {
   }
 }
 
-function setJSONValue(obj, path, value) {
-  const keys = path.split('.')
-  let current = obj
-
-  for (let i = 0; i < keys.length - 1; i++) {
-    const key = keys[i]
-
-    if (
-      current[key] === undefined ||
-      current[key] === null ||
-      typeof current[key] !== "object"
-    ) {
-      current[key] = {}
-    }
-
-    current = current[key]
-  }
-
-  if (value === undefined)
-    return delete current[keys[keys.length - 1]]
-
-  current[keys[keys.length - 1]] = value
-  return obj
-}
-
 function handleAddButton() {
   const key = ctrllerKeyInput.value
   if (key === CONTROLLER_ID || internal_storage[key]) return
@@ -116,22 +69,6 @@ function handleRemoveButton(id) {
   const byId = document.getElementById(id+ENTRY_SPECIAL_SUFFIX)
   byId.remove()
   internal_storage = setJSONValue(internal_storage, id, undefined)
-}
-
-function addEntriesFromJSON(obj, prefix = "") {
-  for (const [key, value] of Object.entries(obj)) {
-    const path = prefix ? `${prefix}.${key}` : key
-
-    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-      addEntriesFromJSON(value, path)
-    } else {
-      addStorageEntry(path, path, JSON.stringify(value))
-    }
-  }
-}
-
-function setConfigToStorage(obj) {
-  return browser.storage.local.set({ "pplx-is-mine": obj })
 }
 
 async function applyConfig() {
