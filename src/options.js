@@ -3,6 +3,7 @@ const ENTRY_SPECIAL_SUFFIX = "HOHOHOHOHOHOHOHO021930342303597340570"
 const IN_DEV = (typeof browser === "undefined")
 
 let internal_storage = {}
+let canApply = true
 
 //Ctrller = Controller
 let ctrllerKeyInput
@@ -129,21 +130,37 @@ function addEntriesFromJSON(obj, prefix = "") {
   }
 }
 
-function applyConfig() {
-  
+function setConfigToStorage(obj) {
+  return browser.storage.local.set({ "pplx-is-mine": obj })
+}
+
+async function applyConfig() {
+  if (IN_DEV) return
+  const logText = document.getElementById("log")
+  try {
+    await setConfigToStorage(internal_storage)
+    logText.innerText = "Successfully applied"
+  } catch (e) {
+    logText.innerText = `Error: ${e}`
+  }
 }
 
 async function init() {
-  let config
-  if (IN_DEV) {
-    config = {
-      params: {
-        model_preference: "gpt54_thinking"
-      },
-      query_str: "hello pplx"
+  let config = {
+    params: {
+      model_preference: "gpt54_thinking"
     }
-  } else {
-    config = await browser.storage.local.get("pplx-is-mine")
+  }
+
+  if (!IN_DEV) {
+    const storedConfig = await browser.storage.local.get("pplx-is-mine")
+    if (storedConfig) {
+      if (storedConfig["pplx-is-mine"] === undefined) {
+        setConfigToStorage(config)
+      } else {
+        config = storedConfig["pplx-is-mine"]
+      }
+    }
   }
   internal_storage = config
 
@@ -153,8 +170,17 @@ async function init() {
   mainContainer.appendChild(createButton(
     "apply",
     "Apply",
-    () => { applyConfig() }
+    async () => {
+      if (!canApply)
+        return
+      canApply = false
+      await applyConfig()
+      canApply = true
+    }
   ))
+  const logText = document.createElement("p")
+  logText.id = "log"
+  mainContainer.appendChild(logText)
 }
 
 init()
