@@ -13,7 +13,7 @@ async function main() {
     apiSecret,
     sourceDir: "./src",
     artifactsDir: "./build",
-    channel: "listed",
+    channel: "unlisted",
     amoBaseUrl: "https://addons.mozilla.org/api/v5/",
     userAgentString: "pplx-is-mine-release-bot",
   })
