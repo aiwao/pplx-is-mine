@@ -33,5 +33,5 @@
       "js": [ ],
       "matches": [ "https://*.perplexity.ai/*" ]
     }
-  ],
+  ]
 }
