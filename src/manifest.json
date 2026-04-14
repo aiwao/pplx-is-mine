@@ -38,7 +38,7 @@
 
   "content_scripts": [
     {
-      "js": [ "./content.js" ],
+      "js": [ "./api.js" ],
       "matches": [ "https://*.perplexity.ai/*" ],
       "run_at": "document_start",
       "world": "ISOLATED"
