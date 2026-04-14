@@ -44,7 +44,7 @@
       "world": "ISOLATED"
     },
     {
-      "js": [ "./inject.js" ],
+      "js": [ "./patcher.js" ],
       "matches": [ "https://*.perplexity.ai/*" ],
       "run_at": "document_start",
       "world": "MAIN"
