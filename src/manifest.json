@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Perplexity is mine",
-  "version": "1.0.3",
+  "version": "1.0.4",
 
   "description": "Perplexity request patcher, for change the model, for skip the search, etc...",
   
