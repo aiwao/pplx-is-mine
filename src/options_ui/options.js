@@ -28,7 +28,8 @@ function addStorageEntry(id, key, value) {
   const valueInput = createInput(
     id+"-value",
     "Value",
-    value
+    value,
+    (e) => { handleOnInput(e, key) }
   )
   container.appendChild(valueInput)
 
@@ -54,12 +55,18 @@ function addStorageEntry(id, key, value) {
   }
 }
 
+function handleOnInput(e, key) {
+  if (!hasJSONFromPath(internal_storage, key))
+    return
+  internal_storage = setJSONValue(internal_storage, key, e.target.value)
+}
+
 function handleAddButton() {
   const key = ctrllerKeyInput.value
   if (key === CONTROLLER_ID) return
 
   const value = ctrllerValueInput.value
-  if (hasJSONPath(internal_storage, key)) {
+  if (hasJSONFromPath(internal_storage, key)) {
     document.getElementById(key+"-value").value = value
   } else {
     addStorageEntry(key, key, value)

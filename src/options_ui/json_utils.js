@@ -23,7 +23,7 @@ function setJSONValue(obj, path, value) {
   return obj
 }
 
-function hasJSONPath(obj, path) {
+function hasJSONFromPath(obj, path) {
   if (!obj || typeof obj !== "object") return false
   
   return path.split(".").every(key => {
