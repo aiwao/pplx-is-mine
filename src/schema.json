@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "pplx-ask-endpoint": {
+      "type": "string",
+      "title": "pplx-ask-endpoint",
+      "description": "Perplexity ask endpoint (default: perplexity.ai/rest/sse/perplexity_ask)"
+    }
+  }
+}
