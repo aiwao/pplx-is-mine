@@ -23,9 +23,17 @@
 
   "permissions": [ "storage" ],
   "host_permissions": [ "https://*.perplexity.ai/*" ],
+  
+  "action": {
+    "default_title": "Options"
+  },
 
   "options_ui": {
     "page": "./options.html"
+  },
+
+  "background": {
+    "scripts": [ "./background.js" ]
   },
 
   "content_scripts": [
