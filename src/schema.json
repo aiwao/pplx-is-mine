@@ -1,10 +1,8 @@
 {
-  "type": "object",
-  "properties": {
-    "pplxAskEndpoint": {
-      "type": "string",
-      "title": "pplx ask endpoint",
-      "description": "Perplexity ask endpoint (default: perplexity.ai/rest/sse/perplexity_ask)"
-    }
+  "name": "pplx-is-mine@140.lol",
+  "description": "ignored",
+  "type": "storage",
+  "data": {
+    "pplxAskEndpoint": "perplexity ask api endpoint (default: perplexity.ai/rest/sse/perplexity_ask)"
   }
 }
