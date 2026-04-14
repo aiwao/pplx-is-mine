@@ -23,8 +23,9 @@ async function postExtensionConfig() {
   }
 
   try {
-    const managedEndpoint = await browser.storage.managed.get("pplxAskEndpoint")
-    config.pplxAskEndpoint = managedEndpoint
+    const managedConfig = await browser.storage.managed.get()
+    config = managedConfig
+    console.log(managedConfig)
   } catch (e) {
     console.error(e)
   }
