@@ -2,9 +2,10 @@
 Perplexity ask-request patcher
 
 ## Installation
+### Latest version:
 [Download .zip/.xpi from here](https://github.com/aiwao/pplx-is-mine/releases/latest)
 
-## Unsigned version
+### Unsigned version:
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing
 
 ## Options
