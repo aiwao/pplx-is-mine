@@ -10,11 +10,12 @@ function createButton(id, label, onclick) {
   return result
 }
 
-function createInput(id, placeholder, value) {
+function createInput(id, placeholder, value, oninput = (e) => {}) {
   const result = document.createElement("input")
   result.id = id
   result.placeholder = placeholder
   result.value = value
+  result.oninput = oninput
   return result
 }
 
