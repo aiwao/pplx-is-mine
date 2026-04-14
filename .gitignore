@@ -1,3 +1,4 @@
+build-firefox
 node_modules
 .venv
 .direnv
