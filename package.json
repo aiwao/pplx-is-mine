@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "web-ext run --source-dir ./src",
     "build": "web-ext build --source-dir ./src --artifacts-dir ./build",
+    "sign": "node sign.js",
     "server": "http-server ./src -c-1"
   },
   "keywords": [],

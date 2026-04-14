@@ -8,7 +8,8 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "pplx-is-mine@140.lol"
-    }
+    },
+    "data_collection_permissions": { }
   },
 
   "icons": {
