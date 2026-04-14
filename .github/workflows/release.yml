@@ -39,6 +39,10 @@ jobs:
         env:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+          VERSION: ${{ GITHUB_REF_NAME#v }}
+
+      - name: Zip
+        run: zip "./src" -d "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.zip"
 
       - name: Create Release
         env:
@@ -46,5 +50,6 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.zip" \
+            "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.xpi" \
             --title "${GITHUB_REF_NAME}" \
             --generate-notes
