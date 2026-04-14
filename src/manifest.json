@@ -24,6 +24,10 @@
   "permissions": [ "storage" ],
   "host_permissions": [ "https://*.perplexity.ai/*" ],
   
+  "storage": {
+    "managed_schema": "schema.json"
+  },
+  
   "action": {
     "default_title": "Options"
   },
