@@ -4,8 +4,8 @@
   "version": "1.0.0",
 
   "description": "Anti perplexity forcing change the model",
-
-  "applications": {
+  
+  "browser_specific_settings": {
     "gecko": {
       "id": "pplx-is-mine@140.lol"
     }
