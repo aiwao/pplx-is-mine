@@ -32,7 +32,7 @@
   window.fetch = async function(input, init) {
     const req = input instanceof Request ? input : new Request(input, init)
     const url = req.url
-    if (!url.includes(config.endpoint) || req.method !== "POST" || !config.model)
+    if (!url.includes(extConfig.pplxAskEndpoint) || req.method !== "POST")
       return originalFetch(input, init)
 
     let bodyJSON = null
@@ -44,7 +44,10 @@
     if (!bodyJSON)
       return originalFetch(input, init)
     
-    bodyJSON.params.model_preference = config.model
+    bodyJSON = {
+      ...bodyJSON,
+      ...config
+    }
 
     const patchedReq = new Request(req.url, {
       method: req.method,
