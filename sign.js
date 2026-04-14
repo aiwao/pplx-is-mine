@@ -14,6 +14,7 @@ async function main() {
     sourceDir: "./src",
     artifactsDir: "./build",
     channel: "listed",
+    amoBaseUrl: "https://addons.mozilla.org/api/v5/",
     userAgentString: "pplx-is-mine-release-bot",
   })
 }
