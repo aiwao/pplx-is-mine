@@ -1,20 +1,15 @@
 console.log("[pplx-is-mine] Content loaded")
 
 async function postConfig() {
-  let endpoint = "perplexity.ai/rest/sse/perplexity_ask"
-
+  let config = {}
   try {
-    const managed = await browser.storage.managed.get("pplx-ask-endpoint")
-    endpoint = managed["pplx-ask-endpoint"] ?? endpoint
+    const storedConfig = await browser.storage.local.get("pplx-is-mine")
+    if (storedConfig["pplx-is-mine"] !== undefined)
+      config = storedConfig["pplx-is-mine"]
   } catch (e) {
     console.error(e)
   }
 
-  const model = await browser.storage.local.get("pplx-is-mine-model")
-  const config = {
-    endpoint,
-    model: model ?? null
-  }
   window.postMessage({
     source: "pplx-is-mine",
     type: "CONFIG",
@@ -22,16 +17,41 @@ async function postConfig() {
   }, "*")
 }
 
+async function postExtensionConfig() {
+  let config = {
+    pplxAskEndpoint: "perplexity.ai/rest/sse/perplexity_ask"
+  }
+
+  try {
+    const managedEndpoint = await browser.storage.managed.get("pplxAskEndpoint")
+    config.pplxAskEndpoint = managedEndpoint
+  } catch (e) {
+    console.error(e)
+  }
+
+  window.postMessage({
+    source: "pplx-is-mine",
+    type: "EXT_CONFIG",
+    payload: config,
+  }, "*")
+}
+
 window.addEventListener("message", async (e) => {
-  if (e.data.source !== "pplx-is-mine" || e.data.type !== "GET_CONFIG")
-    return
-  await postConfig()
+  if (e.data.source !== "pplx-is-mine") return
+  if (e.data.type === "GET_CONFIG") {
+    await postConfig()
+  } else if (e.data.type === "GET_EXT_CONFIG") {
+    await postExtensionConfig()
+  }
 })
 
 browser.storage.onChanged.addListener(async (changes, areaName) => {
-  if (areaName !== "local" && areaName !== "managed")
-    return
-  await sendConfigToPage();
+  if (areaName === "local") {
+    await postConfig();
+  } else if (areaName === "managed") {
+    await postExtensionConfig()
+  }
 });
 
-sendConfigToPage();
+postConfig()
+postExtensionConfig()
