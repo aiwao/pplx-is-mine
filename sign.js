@@ -26,7 +26,7 @@ async function main() {
   if (files.length === 0) throw new Error('signed xpi not found');
 
   const src = path.join(artifactsDir, files[0]);
-  const dest = path.join(artifactsDir, `pplx-is-mine-firefox-${version}.xpi`);
+  const dest = path.join(artifactsDir, `perplexity_is_mine-${version}.xpi`);
   fs.renameSync(src, dest);
 }
 
