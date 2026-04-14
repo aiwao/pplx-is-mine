@@ -1,9 +1,9 @@
 {
   "type": "object",
   "properties": {
-    "pplx-ask-endpoint": {
+    "pplxAskEndpoint": {
       "type": "string",
-      "title": "pplx-ask-endpoint",
+      "title": "pplx ask endpoint",
       "description": "Perplexity ask endpoint (default: perplexity.ai/rest/sse/perplexity_ask)"
     }
   }
