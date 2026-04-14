@@ -3,7 +3,7 @@
   "name": "Perplexity is mine",
   "version": "1.0.0",
 
-  "description": "Anti perplexity forcing change the model",
+  "description": "Perplexity request patcher, for change the model, for skip the search",
   
   "browser_specific_settings": {
     "gecko": {
