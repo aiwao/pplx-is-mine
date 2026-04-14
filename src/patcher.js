@@ -1,3 +1,19 @@
+function deepMergeJSON(target, source) {
+  if (!source || typeof source !== "object") return target
+  
+  for (const key in source) {
+    if (source[key] && typeof source[key] === "object") {
+      if (!target[key]) {
+        target[key] = Array.isArray(source[key]) ? [] : {}
+      }
+      deepMerge(target[key], source[key])
+    } else {
+      target[key] = source[key]
+    }
+  }
+  return target
+}
+
 (() => {
   console.log("[pplx-is-mine] Injected");
   
@@ -44,10 +60,7 @@
     if (!bodyJSON)
       return originalFetch(input, init)
     
-    bodyJSON = {
-      ...bodyJSON,
-      ...config
-    }
+    bodyJSON = deepMergeJSON(bodyJSON, config)
 
     const patchedReq = new Request(req.url, {
       method: req.method,
