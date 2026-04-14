@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:firefox": "web-ext run --source-dir ./src",
-    "build:firefox": "web-ext build --source-dir ./src --artifacts-dir ./build-firefox",
+    "dev": "web-ext run --source-dir ./src",
+    "build": "web-ext build --source-dir ./src --artifacts-dir ./build-firefox",
     "server": "http-server ./src -c-1"
   },
   "keywords": [],
