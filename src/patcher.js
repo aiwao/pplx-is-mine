@@ -1,29 +1,38 @@
 (() => {
   console.log("[pplx-is-mine] Injected");
   
-  let config = {
-    endpoint: "perplexity.ai/rest/sse/perplexity_ask",
-    model: null
+  let extConfig = {
+    pplxAskEndpoint: "perplexity.ai/rest/sse/perplexity_ask"
   }
+  
   window.addEventListener("message", (e) => {
-    if (e.data.source !== "pplx-is-mine" || e.data.type !== "CONFIG")
+    if (e.data.source !== "pplx-is-mine")
       return
 
-    config = {
-      ...config,
-      ...e.data.payload,
+    if (e.data.type === "CONFIG") {
+      config = e.data.payload
+    } else if (e.data.type == "EXT_CONFIG") {
+      extConfig = {
+        ...extConfig,
+        ...e.data.payload,
+      }
     }
   })
+
   window.postMessage({
     source: "pplx-is-mine",
     type: "GET_CONFIG",
+  }, "*")
+  window.postMessage({
+    source: "pplx-is-mine",
+    type: "GET_EXT_CONFIG",
   }, "*")
 
   const originalFetch = window.fetch.bind(window)
   window.fetch = async function(input, init) {
     const req = input instanceof Request ? input : new Request(input, init)
     const url = req.url
-    if (!url.includes(config.endpoint) || req.method !== "POST" || !config.model)
+    if (!url.includes(extConfig.pplxAskEndpoint) || req.method !== "POST")
       return originalFetch(input, init)
 
     let bodyJSON = null
@@ -35,7 +44,10 @@
     if (!bodyJSON)
       return originalFetch(input, init)
     
-    bodyJSON.params.model_preference = config.model
+    bodyJSON = {
+      ...bodyJSON,
+      ...config
+    }
 
     const patchedReq = new Request(req.url, {
       method: req.method,

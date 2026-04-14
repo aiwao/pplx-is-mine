@@ -38,13 +38,13 @@
 
   "content_scripts": [
     {
-      "js": [ "./content.js" ],
+      "js": [ "./api.js" ],
       "matches": [ "https://*.perplexity.ai/*" ],
       "run_at": "document_start",
       "world": "ISOLATED"
     },
     {
-      "js": [ "./inject.js" ],
+      "js": [ "./patcher.js" ],
       "matches": [ "https://*.perplexity.ai/*" ],
       "run_at": "document_start",
       "world": "MAIN"
