@@ -1,9 +1,15 @@
 body {
-  background-color: #696969;
+  background-color: #101010;
   color: #fefefe
 }
 
-.container {
+.row-container {
+  display: flex;
+  gap: 8px;
+}
+
+.col-container {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
