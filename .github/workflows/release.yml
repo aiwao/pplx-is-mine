@@ -45,7 +45,7 @@ jobs:
           VERSION: ${{ env.VERSION }}
 
       - name: Zip
-        run: zip "./src" -d "./build/perplexity_is_mine-${VERSION}.zip"
+        run: zip -r "./build/perplexity_is_mine-${VERSION}.zip" src/
 
       - name: Create Release
         env:
