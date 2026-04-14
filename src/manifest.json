@@ -24,14 +24,18 @@
   "permissions": [ "storage" ],
   "host_permissions": [ "https://*.perplexity.ai/*" ],
 
-  "background": {
-    "scripts": [ "./background.js" ]
-  },
-
   "content_scripts": [
     {
-      "js": [ ],
-      "matches": [ "https://*.perplexity.ai/*" ]
+      "js": [ "./content.js" ],
+      "matches": [ "https://*.perplexity.ai/*" ],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "js": [ "./inject.js" ],
+      "matches": [ "https://*.perplexity.ai/*" ],
+      "run_at": "document_start",
+      "world": "MAIN"
     }
   ]
 }
