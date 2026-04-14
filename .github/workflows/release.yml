@@ -34,22 +34,25 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Set version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+
       - name: Sign
         run: pnpm run sign
         env:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
-          VERSION: ${{ GITHUB_REF_NAME#v }}
+          VERSION: ${{ env.VERSION }}
 
       - name: Zip
-        run: zip "./src" -d "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.zip"
+        run: zip "./src" -d "./build/perplexity_is_mine-${VERSION}.zip"
 
       - name: Create Release
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
-            "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.zip" \
-            "./build/perplexity_is_mine-${GITHUB_REF_NAME#v}.xpi" \
+            "./build/perplexity_is_mine-${VERSION}.zip" \
+            "./build/perplexity_is_mine-${VERSION}.xpi" \
             --title "${GITHUB_REF_NAME}" \
             --generate-notes
